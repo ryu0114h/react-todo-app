@@ -11,3 +11,17 @@ export const deleteData = (index) => {
         index: index
     }
 }
+
+export const addDoneData = (text) => {
+    return {
+        type: "ADD-DONE",
+        message: text
+    }
+}
+
+export const deleteDoneData = (index) => {
+    return {
+        type: "DELETE-DONE",
+        index: index
+    }
+}

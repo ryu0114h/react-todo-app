@@ -1,8 +1,7 @@
 import React from 'react';
 import './App.css';
 import AddForm from './components/AddForm';
-import Item from './components/Item';
-// import Tabs from './components/Tabs';
+import Tabs from './components/Tabs';
 
 function App() {
   return (
@@ -10,8 +9,7 @@ function App() {
       <h1>React Todo App</h1>
       <AddForm />
       <hr />
-      {/* <Tabs /> */}
-      <Item />
+      <Tabs />
     </div>
   );
 }

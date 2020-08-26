@@ -8,7 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import { deleteData } from "../actions";
+import { deleteData, addDoneData } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -34,13 +34,16 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-const Item = () => {
+const Item = (props) => {
     const classes = useStyles();
     const [checkedIndex, setCheckedIndex] = useState([]);
     const selector = useSelector(state => state);
     const dispatch = useDispatch();
 
     let index = -1;
+
+    const doneData = [];
+    let doneIndex = 0;
 
     const handleToggle = (index) => () => {
         const currentIndex = checkedIndex.indexOf(index);
@@ -54,17 +57,103 @@ const Item = () => {
 
         setCheckedIndex(newCheckedIndex);
 
+        newCheckedIndex.map(index => {
+            doneData[doneIndex++] = selector.data[index];
+        })
+
+        dispatch(addDoneData(doneData))
     };
 
     const doAction = (e) => {
         e.preventDefault();
         dispatch(deleteData(e.target.value))
-        console.log(e.target.value)
     }
 
     return (
         <List className={classes.root}>
-            {selector.data.map((value) => {
+            {(props.value === "ALL") && (
+                selector.data.map((value) => {
+                    const labelId = `checkbox-list-label-${value}`;
+                    index++;
+
+                    return (
+                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                    checked={checkedIndex.indexOf(index) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={value} />
+                            <ListItemSecondaryAction>
+                                <Button variant="contained" color="primary" onClick={doAction} value={index} className={classes.button}>
+                                    削除
+                                    </Button>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    );
+                })
+            )}
+            {(props.value === "ToDo") && (
+                selector.data.map((value) => {
+                    const labelId = `checkbox-list-label-${value}`;
+                    index++;
+
+                    return (
+                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                    checked={checkedIndex.indexOf(index) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={value} />
+                            <ListItemSecondaryAction>
+                                <Button variant="contained" color="primary" onClick={doAction} value={index} className={classes.button}>
+                                    削除
+                                    </Button>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    );
+                })
+            )}
+            {(props.value === "Done") && (
+                selector.doneData.map((value) => {
+                    const labelId = `checkbox-list-label-${value}`;
+                    index++;
+
+                    return (
+                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                    checked={checkedIndex.indexOf(index) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={value} />
+                            <ListItemSecondaryAction>
+                                <Button variant="contained" color="primary" onClick={doAction} value={index} className={classes.button}>
+                                    削除
+                                    </Button>
+                            </ListItemSecondaryAction>
+                        </ListItem>
+                    );
+                })
+            )}
+
+            {/* {(props.value === "ToDo") && (2)}
+            {(props.value === "Done") && (3)} */}
+
+            {/* {selector.data.map((value) => {
                 const labelId = `checkbox-list-label-${value}`;
                 index++;
 
@@ -83,11 +172,11 @@ const Item = () => {
                         <ListItemSecondaryAction>
                             <Button variant="contained" color="primary" onClick={doAction} value={index} className={classes.button}>
                                 削除
-                            </Button>
+                                </Button>
                         </ListItemSecondaryAction>
                     </ListItem>
                 );
-            })}
+            })} */}
         </List>
     );
 }

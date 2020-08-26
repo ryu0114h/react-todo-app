@@ -4,8 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import Item from './Item';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -20,7 +20,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography>{children}</Typography>
+          <div>{children}</div>
         </Box>
       )}
     </div>
@@ -71,13 +71,13 @@ export default function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        All
+        <Item value="ALL"/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        ToDo
+        <Item value="ToDo"/>
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Done
+        <Item value="Done"/>
       </TabPanel>
     </div>
   );
