@@ -57,7 +57,7 @@ const AddForm = () => {
                 <TextField required id="outlined-basic" label="" variant="outlined" onChange={doChange} value={message} />
             </form>
             <div className={classes.rootButton}>
-                <Button variant="contained" className={classes.button} onClick={doAction}>Add</Button>
+                <Button variant="contained" className={classes.button} onClick={doAction}>追加</Button>
             </div>
         </div>
     )

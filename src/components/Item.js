@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -36,30 +36,24 @@ const useStyles = makeStyles((theme) => ({
 
 const Item = () => {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([]);
+    const [checkedIndex, setCheckedIndex] = useState([]);
     const selector = useSelector(state => state);
     const dispatch = useDispatch();
 
     let index = -1;
 
-    // console.log(checked)
-
-    const handleToggle = (value) => () => {
-        const currentIndex = checked.indexOf(value);
-        const newChecked = [...checked];
+    const handleToggle = (index) => () => {
+        const currentIndex = checkedIndex.indexOf(index);
+        const newCheckedIndex = [...checkedIndex];
 
         if (currentIndex === -1) {
-            newChecked.push(value);
+            newCheckedIndex.push(index);
         } else {
-            newChecked.splice(currentIndex, 1);
+            newCheckedIndex.splice(currentIndex, 1);
         }
 
-        setChecked(newChecked);
+        setCheckedIndex(newCheckedIndex);
 
-        // console.log(currentIndex);
-        // console.log(value)
-        // console.log(checked);
-        // console.log(newChecked);
     };
 
     const doAction = (e) => {
@@ -75,11 +69,11 @@ const Item = () => {
                 index++;
 
                 return (
-                    <ListItem key={index} role={undefined} dense button onClick={handleToggle(value)}>
+                    <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
                         <ListItemIcon>
                             <Checkbox
                                 edge="start"
-                                checked={checked.indexOf(value) !== -1}
+                                checked={checkedIndex.indexOf(index) !== -1}
                                 tabIndex={-1}
                                 disableRipple
                                 inputProps={{ 'aria-labelledby': labelId }}
@@ -88,7 +82,7 @@ const Item = () => {
                         <ListItemText id={labelId} primary={value} />
                         <ListItemSecondaryAction>
                             <Button variant="contained" color="primary" onClick={doAction} value={index} className={classes.button}>
-                                Delete
+                                削除
                             </Button>
                         </ListItemSecondaryAction>
                     </ListItem>
