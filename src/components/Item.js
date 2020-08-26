@@ -97,7 +97,7 @@ const Item = (props) => {
                     );
                 })
             )}
-            {(props.value === "ToDo") && (
+            {/* {(props.value === "ToDo") && (
                 selector.data.map((value) => {
                     const labelId = `checkbox-list-label-${value}`;
                     index++;
@@ -122,8 +122,9 @@ const Item = (props) => {
                         </ListItem>
                     );
                 })
-            )}
+            )} */}
             {(props.value === "Done") && (
+                (selector.doneData) &&
                 selector.doneData.map((value) => {
                     const labelId = `checkbox-list-label-${value}`;
                     index++;
