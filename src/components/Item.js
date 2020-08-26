@@ -27,15 +27,22 @@ const useStyles = makeStyles((theme) => ({
             border: "1px solid #666",
         },
     },
+    button: {
+        '& > .MuiButton-label': {
+            pointerEvents: "none",
+        },
+    }
 }));
 
 const Item = () => {
     const classes = useStyles();
-    const [checked, setChecked] = React.useState([0]);
+    const [checked, setChecked] = React.useState([]);
     const selector = useSelector(state => state);
     const dispatch = useDispatch();
 
-    let index = 0;
+    let index = -1;
+
+    // console.log(checked)
 
     const handleToggle = (value) => () => {
         const currentIndex = checked.indexOf(value);
@@ -48,20 +55,27 @@ const Item = () => {
         }
 
         setChecked(newChecked);
+
+        // console.log(currentIndex);
+        // console.log(value)
+        // console.log(checked);
+        // console.log(newChecked);
     };
 
     const doAction = (e) => {
         e.preventDefault();
         dispatch(deleteData(e.target.value))
+        console.log(e.target.value)
     }
 
     return (
         <List className={classes.root}>
             {selector.data.map((value) => {
                 const labelId = `checkbox-list-label-${value}`;
+                index++;
 
                 return (
-                    <ListItem key={selector.data.indexOf(value)} role={undefined} dense button onClick={handleToggle(value)}>
+                    <ListItem key={index} role={undefined} dense button onClick={handleToggle(value)}>
                         <ListItemIcon>
                             <Checkbox
                                 edge="start"
@@ -73,7 +87,7 @@ const Item = () => {
                         </ListItemIcon>
                         <ListItemText id={labelId} primary={value} />
                         <ListItemSecondaryAction>
-                            <Button variant="contained" color="primary" onClick={doAction} value={index++} >
+                            <Button variant="contained" color="primary" onClick={doAction} value={index} className={classes.button}>
                                 Delete
                             </Button>
                         </ListItemSecondaryAction>

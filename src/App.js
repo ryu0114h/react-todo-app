@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import AddForm from './components/AddForm';
 import Item from './components/Item';
-import Tabs from './components/Tabs';
+// import Tabs from './components/Tabs';
 
 function App() {
   return (
