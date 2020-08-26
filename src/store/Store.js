@@ -2,7 +2,7 @@ import { createStore } from "redux";
 
 const initData = {
     data: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-    doneDate: []
+    checkedData: []
 }
 
 export const todoReducer = (state = initData, action) => {
@@ -11,10 +11,10 @@ export const todoReducer = (state = initData, action) => {
             return addReduce(state, action);
         case "DELETE":
             return deleteReduce(state, action);
-        case "ADD-DONE":
-            return addDoneReduce(state, action);
-        case "DELETE-DONE":
-            return deleteDoneReduce(state, action);
+        case "ADD-CHECKED":
+            return addCheckedReduce(state, action);
+        case "DELETE-CHECKED":
+            return deleteCheckedReduce(state, action);
         default:
             return state;
     }
@@ -40,22 +40,22 @@ const deleteReduce = (state, action) => {
     }
 }
 
-const addDoneReduce = (state, action) => {
+const addCheckedReduce = (state, action) => {
     let newData = action.message.slice();
 
     return {
         ...state,
-        doneData: newData,
+        checkedData: newData,
     }
 }
 
-const deleteDoneReduce = (state, action) => {
-    let newData = state.doneData.slice();
+const deleteCheckedReduce = (state, action) => {
+    let newData = state.checkedData.slice();
     newData.splice(action.index, 1);
 
     return {
         ...state,
-        doneData: newData,
+        checkedData: newData,
     }
 }
 

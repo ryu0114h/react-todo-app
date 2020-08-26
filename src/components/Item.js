@@ -8,7 +8,7 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
-import { deleteData, addDoneData } from "../actions";
+import { deleteData, addCheckedData } from "../actions";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -36,33 +36,59 @@ const useStyles = makeStyles((theme) => ({
 
 const Item = (props) => {
     const classes = useStyles();
+    const [checked, setChecked] = useState([]);
     const [checkedIndex, setCheckedIndex] = useState([]);
     const selector = useSelector(state => state);
     const dispatch = useDispatch();
 
     let index = -1;
 
-    const doneData = [];
-    let doneIndex = 0;
+    // const checkedData = [];
+    // let doneIndex = 0;
 
-    const handleToggle = (index) => () => {
-        const currentIndex = checkedIndex.indexOf(index);
-        const newCheckedIndex = [...checkedIndex];
+    console.log(checked)
+    console.log(selector.checkedData)
+
+    const handleToggle = (value, index) => () => {
+        const currentIndex = checked.indexOf(value);
+        const newChecked = [...checked];
+        // const currentIndex = checked.indexOf(value);
+        // const newChecked = [...checked];
 
         if (currentIndex === -1) {
-            newCheckedIndex.push(index);
+            newChecked.push(value);
         } else {
-            newCheckedIndex.splice(currentIndex, 1);
+            newChecked.splice(currentIndex, 1);
         }
 
-        setCheckedIndex(newCheckedIndex);
+        setChecked(newChecked);
 
-        newCheckedIndex.map(index => {
-            doneData[doneIndex++] = selector.data[index];
-        })
+        // console.log(newChecked)
+        // console.log(checkedData)
 
-        dispatch(addDoneData(doneData))
+        dispatch(addCheckedData(newChecked))
     };
+
+
+
+    // const handleToggle = (value, index) => () => {
+    //     const currentIndex = checkedIndex.indexOf(index);
+    //     const newCheckedIndex = [...checkedIndex];
+
+    //     if (currentIndex === -1) {
+    //         newCheckedIndex.push(index);
+    //     } else {
+    //         newCheckedIndex.splice(currentIndex, 1);
+    //     }
+
+    //     setCheckedIndex(newCheckedIndex);
+
+    //     newCheckedIndex.map(index => {
+    //         checkedData[doneIndex++] = selector.data[index];
+    //     })
+
+    //     dispatch(addCheckedData(checkedData))
+    // };
 
     const doAction = (e) => {
         e.preventDefault();
@@ -77,11 +103,12 @@ const Item = (props) => {
                     index++;
 
                     return (
-                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
+                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(value, index)}>
                             <ListItemIcon>
                                 <Checkbox
                                     edge="start"
-                                    checked={checkedIndex.indexOf(index) !== -1}
+                                    checked={checked.indexOf(value) !== -1}
+                                    // checked={checkedIndex.indexOf(index) !== -1}
                                     tabIndex={-1}
                                     disableRipple
                                     inputProps={{ 'aria-labelledby': labelId }}
@@ -103,7 +130,7 @@ const Item = (props) => {
                     index++;
 
                     return (
-                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
+                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(value, index)}>
                             <ListItemIcon>
                                 <Checkbox
                                     edge="start"
@@ -124,17 +151,20 @@ const Item = (props) => {
                 })
             )} */}
             {(props.value === "Done") && (
-                (selector.doneData) &&
-                selector.doneData.map((value) => {
+                (selector.checkedData) &&
+                selector.checkedData.map((value) => {
                     const labelId = `checkbox-list-label-${value}`;
                     index++;
+                    handleToggle(index);
 
                     return (
-                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(index)}>
+                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(value, index)}>
                             <ListItemIcon>
                                 <Checkbox
                                     edge="start"
-                                    checked={checkedIndex.indexOf(index) !== -1}
+                                    checked={selector.checkedData.indexOf(value) !== -1}
+                                    // checked={checked.indexOf(value) !== -1}
+                                    // checked={checkedIndex.indexOf(index) !== -1}
                                     tabIndex={-1}
                                     disableRipple
                                     inputProps={{ 'aria-labelledby': labelId }}

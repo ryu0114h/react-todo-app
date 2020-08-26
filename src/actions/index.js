@@ -12,16 +12,16 @@ export const deleteData = (index) => {
     }
 }
 
-export const addDoneData = (text) => {
+export const addCheckedData = (text) => {
     return {
-        type: "ADD-DONE",
+        type: "ADD-CHECKED",
         message: text
     }
 }
 
-export const deleteDoneData = (index) => {
+export const deleteCheckedData = (index) => {
     return {
-        type: "DELETE-DONE",
+        type: "DELETE-CHECKED",
         index: index
     }
 }
