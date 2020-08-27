@@ -5,23 +5,17 @@ export const addData = (text) => {
     }
 }
 
-export const deleteData = (index) => {
+export const deleteData = (text) => {
     return {
         type: "DELETE",
-        index: index
-    }
-}
-
-export const addCheckedData = (text) => {
-    return {
-        type: "ADD-CHECKED",
         message: text
     }
 }
 
-export const deleteCheckedData = (index) => {
+export const addCheckedData = (array1, array2) => {
     return {
-        type: "DELETE-CHECKED",
-        index: index
+        type: "ADD-CHECKED",
+        checked: array1,
+        notChecked: array2,
     }
 }

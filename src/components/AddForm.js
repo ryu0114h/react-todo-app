@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addData } from "../actions/index";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
@@ -35,6 +35,7 @@ const AddForm = () => {
     const classes = useStyles();
     const [message, setMessage] = useState("");
     const dispatch = useDispatch();
+    const selector = useSelector(state => state);
 
     const doChange = (e) => {
         setMessage(e.target.value);
@@ -62,5 +63,4 @@ const AddForm = () => {
         </div>
     )
 }
-
 export default AddForm;

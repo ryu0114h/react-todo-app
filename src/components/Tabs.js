@@ -71,13 +71,13 @@ export default function SimpleTabs() {
         </Tabs>
       </AppBar>
       <TabPanel value={value} index={0}>
-        <Item value="ALL"/>
+        <Item value="ALL" />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Item value="ToDo"/>
+        <Item value="ToDo" />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        <Item value="Done"/>
+        <Item value="Done" />
       </TabPanel>
     </div>
   );
