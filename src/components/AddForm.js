@@ -35,7 +35,6 @@ const AddForm = () => {
     const classes = useStyles();
     const [message, setMessage] = useState("");
     const dispatch = useDispatch();
-    const selector = useSelector(state => state);
 
     const doChange = (e) => {
         setMessage(e.target.value);
