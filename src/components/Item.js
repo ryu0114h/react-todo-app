@@ -2,13 +2,8 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
 import { deleteData, addCheckedData } from "../actions";
+import ItemChildren from "./ItemChildren";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -75,23 +70,7 @@ const Item = (props) => {
                     index++;
 
                     return (
-                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(value)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={selector.checkedData.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={value} />
-                            <ListItemSecondaryAction>
-                                <Button variant="contained" color="primary" onClick={doAction} value={value} className={classes.button}>
-                                    削除
-                                </Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        <ItemChildren index={index} value={value} classes={classes} doAction={doAction} handleToggle={handleToggle} labelId={labelId}/>
                     );
                 })
             )}
@@ -103,23 +82,7 @@ const Item = (props) => {
                     handleToggle(index);
 
                     return (
-                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(value)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={selector.checkedData.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={value} />
-                            <ListItemSecondaryAction>
-                                <Button variant="contained" color="primary" onClick={doAction} value={value} className={classes.button}>
-                                    削除
-                                </Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        <ItemChildren index={index} value={value} classes={classes} doAction={doAction} handleToggle={handleToggle} labelId={labelId} />
                     );
                 })
             )}
@@ -131,23 +94,7 @@ const Item = (props) => {
                     handleToggle(index);
 
                     return (
-                        <ListItem key={index} role={undefined} dense button onClick={handleToggle(value)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={selector.checkedData.indexOf(value) !== -1}
-                                    tabIndex={-1}
-                                    disableRipple
-                                    inputProps={{ 'aria-labelledby': labelId }}
-                                />
-                            </ListItemIcon>
-                            <ListItemText id={labelId} primary={value} />
-                            <ListItemSecondaryAction>
-                                <Button variant="contained" color="primary" onClick={doAction} value={value} className={classes.button}>
-                                    削除
-                                </Button>
-                            </ListItemSecondaryAction>
-                        </ListItem>
+                        <ItemChildren index={index} value={value} classes={classes} doAction={doAction} handleToggle={handleToggle} labelId={labelId} />
                     );
                 })
             )}
