@@ -1,9 +1,10 @@
 import { createStore } from "redux";
 
 const initData = {
-    data: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    data: [],
     checkedData: [],
-    notCheckedData: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    // notCheckedData: ["1", "2", "3", "4", "5", "6", "7", "8", "9"],
+    notCheckedData: [],
 }
 
 export const todoReducer = (state = initData, action) => {
